@@ -6,7 +6,7 @@ namespace honaapi.Interfaces
 {
     public interface ICategoryService
     {
-        Task<PagedResult<Category>> SearchCategoriesAsync(SearchDTO searchDTO);
+        Task<PagedResult<Category>> SearchCategoriesAsync(SearchCategoryDTO searchDTO);
         Task<Category> GetByIdAsync(int id);
         Task AddCategoryAsync(Category category);
         Task SaveChangesAsync();

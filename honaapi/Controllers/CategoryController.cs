@@ -19,7 +19,7 @@ namespace honaapi.Controllers
         }
 
         [HttpPost("SearchCategory")]
-        public async Task<IActionResult> Search([FromBody] SearchDTO searchDTO)
+        public async Task<IActionResult> Search([FromBody] SearchCategoryDTO searchDTO)
         {
             try
             {
@@ -53,7 +53,7 @@ namespace honaapi.Controllers
         }
 
         [HttpPost("CreateCategory")]
-        public async Task<IActionResult> Create([FromBody] CreateDTO createDTO)
+        public async Task<IActionResult> Create([FromBody] CreateOrUpdateCategoryDTO createDTO)
         {
             if (string.IsNullOrEmpty(createDTO.Name))
             {
@@ -101,9 +101,9 @@ namespace honaapi.Controllers
         }
 
         [HttpPut("EditCategory/{id}")]
-        public async Task<IActionResult> Edit(int id, [FromBody] CreateDTO editCategoryDto)
+        public async Task<IActionResult> Edit(int id, [FromBody] CreateOrUpdateCategoryDTO editDTO)
         {
-            if (string.IsNullOrEmpty(editCategoryDto.Name))
+            if (string.IsNullOrEmpty(editDTO.Name))
             {
                 return StatusCodeResponse.BadRequestResponse("Category name cannot be empty", "Category name cannot be empty");
             }
@@ -115,9 +115,9 @@ namespace honaapi.Controllers
                     return StatusCodeResponse.NotFoundResponse("Category not found", "Category not found");
                 }
 
-                category.Name = editCategoryDto.Name;
-                category.Description = editCategoryDto.Description;
-                category.Slug = StringUtil.GenerateSlug(editCategoryDto.Name);
+                category.Name = editDTO.Name;
+                category.Description = editDTO.Description;
+                category.Slug = StringUtil.GenerateSlug(editDTO.Name);
                 category.UpdatedAt = DateTime.Now;
 
                 await _categoryService.UpdateCategoryAsync(category);

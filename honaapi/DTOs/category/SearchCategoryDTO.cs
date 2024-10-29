@@ -1,6 +1,6 @@
 ﻿namespace honaapi.DTOs.category
 {
-    public class SearchDTO
+    public class SearchCategoryDTO
     {
         public int? Id { get; set; }
         public string? Name { get; set; }

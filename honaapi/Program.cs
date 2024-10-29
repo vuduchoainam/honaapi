@@ -75,10 +75,14 @@ builder.Services.AddSwaggerGen(options =>
 
 //Repositories
 builder.Services.AddScoped<IRepository<Category>, Repository<Category>>();
+builder.Services.AddScoped<IRepository<Brand>, Repository<Brand>>();
+
 
 //Services
 builder.Services.AddScoped<IUserAccountService, AccountService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IBrandService, BrandService>();
+
 
 var app = builder.Build();
 

@@ -1,4 +1,4 @@
-﻿using honaapi.DTOs.category;
+﻿using honaapi.DTOs.brand;
 using honaapi.Helpers;
 using honaapi.Interfaces;
 using honaapi.Models;
@@ -7,15 +7,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace honaapi.Services
 {
-    public class CategoryService : ICategoryService
+    public class BrandService : IBrandService
     {
-        private readonly IRepository<Category> _categoryRepository;
-        public CategoryService(IRepository<Category> categoryRepository)
+        private readonly IRepository<Brand> _brandRepository;
+        public BrandService(IRepository<Brand> brandRepository)
         {
-            _categoryRepository = categoryRepository;
+            _brandRepository = brandRepository;
         }
 
-        public async Task<PagedResult<Category>> SearchCategoriesAsync(SearchCategoryDTO searchDTO)
+        public async Task<PagedResult<Brand>> SearchBrandAsync(SearchBrandDTO searchDTO)
         {
             if (searchDTO.PageSize <= 0)
             {
@@ -26,7 +26,7 @@ namespace honaapi.Services
                 searchDTO.PageNumber = 0;
             }
 
-            var query = _categoryRepository.GetQueryable();
+            var query = _brandRepository.GetQueryable();
 
             //get by id
             if (searchDTO.Id.HasValue)
@@ -52,7 +52,7 @@ namespace honaapi.Services
             var skip = searchDTO.PageNumber * searchDTO.PageSize;
             var items = await query.Skip(skip).Take(searchDTO.PageSize).ToListAsync();
 
-            var result = new PagedResult<Category>
+            var result = new PagedResult<Brand>
             {
                 PageNumber = searchDTO.PageNumber,
                 PageSize = searchDTO.PageSize,
@@ -63,40 +63,35 @@ namespace honaapi.Services
             return result;
         }
 
-        public async Task<Category> GetByIdAsync(int id)
+        public async Task<Brand> GetByIdAsync(int id)
         {
-            return await _categoryRepository.GetByIdAsync(id);
+            return await _brandRepository.GetByIdAsync(id);
         }
 
-        public async Task AddCategoryAsync(Category category)
+        public async Task AddBrandAsync(Brand brand)
         {
-            await _categoryRepository.AddAsync(category);
+            await _brandRepository.AddAsync(brand);
         }
 
-        public async Task UpdateCategoryAsync(Category category)
+        public async Task UpdateBrandAsync(Brand brand)
         {
-            _categoryRepository.UpdateAsync(category);
-            await _categoryRepository.SaveChangesAsync();
+            _brandRepository.UpdateAsync(brand);
+            await _brandRepository.SaveChangesAsync();
+
         }
 
-        public async Task DeleteCategoryAsync(int id)
+        public async Task DeleteBrandAsync(int id)
         {
-            var category = await _categoryRepository.GetByIdAsync(id);
+            var category = await _brandRepository.GetByIdAsync(id);
             if (category != null)
             {
-                await _categoryRepository.RemoveAsync(category);
+                await _brandRepository.RemoveAsync(category);
             }
         }
 
         public async Task SaveChangesAsync()
         {
-            await _categoryRepository.SaveChangesAsync();
-        }
-
-        public async Task<int> CountWithSlugAsync(string slug)
-        {
-            var categories = await _categoryRepository.FindAsync(x => x.Slug == slug);
-            return categories.Count();
+            await _brandRepository.SaveChangesAsync();
         }
     }
 }

@@ -11,10 +11,7 @@ namespace honaapi.Models
         public string Name { get; set; } = string.Empty;
 
         public string? Description { get; set; }
-
-        public string? Slug { get; set; }
-        public ICollection<UploadImage> Images { get; set; } = new List<UploadImage>();
-
+           
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         public DateTime? UpdatedAt { get; set; }
