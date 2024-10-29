@@ -12,6 +12,10 @@ namespace honaapi.Data
 
         //dbset
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Brand> Brands { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<VariantProduct> VariantProducts { get; set; }
+        public DbSet<UploadImage> UploadImages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
