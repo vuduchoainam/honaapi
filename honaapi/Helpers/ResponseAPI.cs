@@ -1,4 +1,4 @@
-﻿namespace honaapi.Data
+﻿namespace honaapi.Helpers
 {
     public class ResponseAPI<T>
     {

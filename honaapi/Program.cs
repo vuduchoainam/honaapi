@@ -1,5 +1,7 @@
 using honaapi.Data;
 using honaapi.Interfaces;
+using honaapi.Models;
+using honaapi.Repositories;
 using honaapi.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -72,10 +74,11 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 //Repositories
-
+builder.Services.AddScoped<IRepository<Category>, Repository<Category>>();
 
 //Services
 builder.Services.AddScoped<IUserAccountService, AccountService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 
 var app = builder.Build();
 
