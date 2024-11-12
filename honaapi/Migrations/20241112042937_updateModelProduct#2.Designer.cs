@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using honaapi.Data;
 
@@ -11,9 +12,11 @@ using honaapi.Data;
 namespace honaapi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241112042937_updateModelProduct#2")]
+    partial class updateModelProduct2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -301,9 +304,6 @@ namespace honaapi.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ImageId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(500)
@@ -339,11 +339,12 @@ namespace honaapi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("ProductId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
 
                     b.ToTable("UploadImages");
                 });
@@ -455,6 +456,15 @@ namespace honaapi.Migrations
                     b.Navigation("Category");
                 });
 
+            modelBuilder.Entity("honaapi.Models.UploadImage", b =>
+                {
+                    b.HasOne("honaapi.Models.Product", "Product")
+                        .WithMany("Images")
+                        .HasForeignKey("ProductId");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("honaapi.Models.VariantProduct", b =>
                 {
                     b.HasOne("honaapi.Models.Product", "Product")
@@ -468,6 +478,8 @@ namespace honaapi.Migrations
 
             modelBuilder.Entity("honaapi.Models.Product", b =>
                 {
+                    b.Navigation("Images");
+
                     b.Navigation("VariantProducts");
                 });
 #pragma warning restore 612, 618

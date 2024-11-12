@@ -18,17 +18,13 @@ namespace honaapi.Models
 
         [Required(ErrorMessage = "Giá không được để trống")]
         [Range(0.01, double.MaxValue, ErrorMessage = "Giá phải lớn hơn 0")]
-        public decimal Price { get; set; }
+        public decimal BasePrice { get; set; }
 
-        [Required(ErrorMessage = "Số lượng không được để trống")]
-        [Range(0, int.MaxValue, ErrorMessage = "Số lượng phải lớn hơn hoặc bằng 0")]
-        public int Quantity { get; set; }
+        public int ImageId { get; set; }
 
-        public virtual ICollection<UploadImage> Images { get; set; } = new List<UploadImage>();
+        public virtual ICollection<VariantProduct>  VariantProducts { get; set; } = new List<VariantProduct>();
 
-        public ProductStatus Status { get; set; } = ProductStatus.InStock;
-
-        public int Sold { get; set; }
+        public int? Sold { get; set; } = 0;
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 

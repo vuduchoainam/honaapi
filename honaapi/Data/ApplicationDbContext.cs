@@ -20,6 +20,10 @@ namespace honaapi.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<VariantProduct>()
+            .Property(v => v.Id)
+            .ValueGeneratedOnAdd();
         }
     }
 }
