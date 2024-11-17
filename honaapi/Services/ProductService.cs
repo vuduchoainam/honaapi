@@ -109,10 +109,16 @@ namespace honaapi.Services
             }
         }
 
-        public async Task UpdateProductAsync(Product product)
+        public async Task UpdateProductAsync(Product product, List<CreateOrUpdateVariantDTO> variants)
         {
             await _productRepository.UpdateAsync(product);
             await SaveChangesAsync();
+
+            foreach (var variant in product.VariantProducts)
+            {
+                await _variantRepository.AddAsync(variant);
+                await _variantRepository.SaveChangesAsync();
+            }
         }
 
         public async Task DeleteProductAsync(int id)

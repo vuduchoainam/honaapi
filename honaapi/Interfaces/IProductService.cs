@@ -11,7 +11,7 @@ namespace honaapi.Interfaces
         Task<Product> GetByIdAsync(int id);
         Task AddProductWithVariantsAsync(Product product, List<CreateOrUpdateVariantDTO> variants);
         Task SaveChangesAsync();
-        Task UpdateProductAsync(Product product);
+        Task UpdateProductAsync(Product product, List<CreateOrUpdateVariantDTO> variants);
         Task DeleteProductAsync(int id);
         Task<int> CountWithSlugAsync(string slug);
     }

@@ -20,8 +20,6 @@ namespace honaapi.Models
         [Range(0.01, double.MaxValue, ErrorMessage = "Giá phải lớn hơn 0")]
         public decimal BasePrice { get; set; }
 
-        public int ImageId { get; set; }
-
         public virtual ICollection<VariantProduct>  VariantProducts { get; set; } = new List<VariantProduct>();
 
         public int? Sold { get; set; } = 0;
@@ -36,5 +34,8 @@ namespace honaapi.Models
 
         public Brand? Brand { get; set; }
         public int BrandId { get; set; }
+
+        public UploadImage? Image { get; set; }
+        public int ImageId { get; set; }
     }
 }

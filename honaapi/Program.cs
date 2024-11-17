@@ -87,6 +87,8 @@ builder.Services.AddScoped<IUserAccountService, AccountService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IBrandService, BrandService>();
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IUploadImageService, UploadImageService>();
+
 
 
 var app = builder.Build();
